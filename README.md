@@ -1,4 +1,3 @@
-# Vue Review
 
 Vue Composition API
 
