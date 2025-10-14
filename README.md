@@ -1,9 +1,15 @@
-Vue Composition API
+# Vue Review
+
+This is a Vue Composition API רeview
+
+## Table Of Content
 
 - [Udemy course](#udemy-course)
 - [Extensions](#extensions)
-- [Code Templates](#code-templates)
+- [Featues and Code Samples](#featues-and-code-samples)
   - [Root Compoment](#root-component)
+  - [ref()](#ref)
+  - [computed()](#computed)
 - [Comments](#comments)
 
 ## Udemy course
@@ -17,7 +23,7 @@ Vue Composition API
 - [https://marketplace.visualstudio.com/items?itemName=Vue.volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 - [https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 
-## Code Templates
+## Featues and Code Samples
 
 ### Root Component
 
@@ -39,6 +45,55 @@ const app = createApp(App)
 app.mount('#app')
 
 ```
+
+### ref()
+
+**[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
+
+ref() is a function used to create a reactive reference to a value — that is, a piece of reactive state that Vue tracks and updates the DOM when it changes.
+
+```
+<template>
+  <button @click="count++">
+    Count is: {{ count }}
+  </button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const count = ref(0)
+</script>
+```
+
+### computed()
+
+computed() is used to define reactive, derived values — values that are automatically calculated from other reactive data (ref, reactive, etc.) and update whenever their dependencies change.
+
+```
+<script setup>
+import { ref, computed } from 'vue'
+
+const count = ref(2)
+
+const double = computed(() => count.value * 2)
+
+const plusOne = computed({
+  get: () => count.value + 1,
+  set: (val) => {
+    count.value = val - 1
+  }
+})
+</script>
+
+<template>
+  <p>Count: {{ count }}</p>
+  <p>Double: {{ double }}</p>
+  <button @click="count++">Increment</button>
+</template>
+```
+
+**[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
 
 ## Comments
 

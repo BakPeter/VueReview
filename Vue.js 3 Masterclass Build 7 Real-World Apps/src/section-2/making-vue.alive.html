@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vue 3.4 Template</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/normalize.css/normalize.css"
-    />
+    <link rel="stylesheet" href="https://unpkg.com/normalize.css/normalize.css" />
     <style type="text/css">
       body {
         font-family: monospace;
@@ -28,12 +25,10 @@
     <div id="app">
       <div><label>Enter your age:</label></div>
       <div><input v-model="age" /></div>
-      <div>{{message}}</div>
+      <div>{{ message }}</div>
       <div>
         Can You Drive:
-        <span :class="{can:canDrive==='yes',  cant:canDrive==='no'}"
-          >{{canDrive}}</span
-        >
+        <span :class="{can:canDrive==='yes',  cant:canDrive==='no'}">{{canDrive}}</span>
       </div>
     </div>
     <script>
@@ -48,7 +43,7 @@
           });
 
           setTimeout(() => {
-            message.value = 'Buy Motherfuckers';
+            message.value = 'Goodbuy Motherfuckers';
             age.value = 26;
             console.log(
               'SetTimeout event handler ' +

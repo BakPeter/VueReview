@@ -8,11 +8,78 @@
     <script src="https://unpkg.com/vue@3.4.0"></script>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div><h4>{{ titleMsg }}</h4></div>
+      <div>{{ instructionMsg }}</div>
+      <div><input id="answerInput" v-model="input" /></div>
+      <div>Answers: {{ answersMsg }}</div>
+      <div>Result: {{ result }}</div>
+    </div>
 
     <script>
       const { createApp, ref, computed } = Vue;
-      const app = createApp({}).mount('#app');
+      const app = createApp({
+        setup() {
+          const quations = [
+            {
+              q: 'How much is 2+2',
+              a: '4',
+            },
+            {
+              q: 'How much is 3*5+1',
+              a: '16',
+            },
+            {
+              q: 'What is the rest from 3/1',
+              a: '1',
+            },
+          ];
+          let currQustionInd = -1;
+
+          let answers = ref([]);
+          let titleMsg = ref('Next Qustion');
+          let instructionMsg = ref('Not Started');
+          let input = ref(null);
+
+          let answersMsg = computed(() => {
+            return JSON.stringify(answers.value);
+          });
+
+          let result = computed(() => {
+            let correctCount = 0;
+            for (let i = 0; i < answers.value.length; i++) {
+              if (answers.value[i] === quations[i].a) {
+                correctCount++;
+              }
+            }
+
+            const res = correctCount + '/' + quations.length;
+            return res;
+          });
+
+          const intervalId = setInterval(() => {
+            // console.log('input: ' + input.value);
+            currQustionInd = currQustionInd < quations.length - 1 ? currQustionInd + 1 : -1;
+
+            if (currQustionInd == -1) {
+              titleMsg.value = 'Finished';
+              clearInterval(intervalId);
+
+              input.value = '';
+              const inputElm = document.getElementById('answerInput');
+              inputElm.disabled = true;
+
+              return;
+            }
+
+            const currAnswer = input.value == null ? '' : input.value;
+            answers.value.push(currAnswer);
+            instructionMsg.value = quations[currQustionInd].q;
+            input.value = '';
+          }, 3000);
+          return { titleMsg, instructionMsg, answersMsg, input, result };
+        },
+      }).mount('#app');
     </script>
   </body>
 </html>
