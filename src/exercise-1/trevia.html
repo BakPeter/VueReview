@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3.4 Template</title>
+    <link rel="stylesheet" href="https://unpkg.com/normalize.css/normalize.css" />
+    <style type="text/css">
+      body {
+        font-family: monospace;
+        padding: 20px;
+        font-size: 2em;
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <div v-if="isGameOver === false">
+        <p>{{ currentQuation }}</p>
+        <input v-model="currenAnswer" />
+      </div>
+      <div v-if="isGameOver">
+        <h1>Game Over</h1>
+        <p>Your Score: {{ score }}</p>
+      </div>
+    </div>
+
+    <script>
+      const { createApp, ref, computed } = Vue;
+      const App = {
+        setup() {
+          let isGameOver = ref(false);
+          let score = ref(0);
+
+          const questions = ['How much is 2+2', 'How much is 3*5+1', 'What is the rest from 3/1'];
+          const answers = ['4', '16', '1'];
+
+          let currentQuastionInd = ref(0);
+          let currentQuation = computed(() => questions[currentQuastionInd.value]);
+
+          let currenAnswer = ref('');
+
+          const onInterval = () => {
+            if (currenAnswer.value === answers[currentQuastionInd.value]) score.value = score.value + 1;
+
+            console.log(
+              'onInterval,  ' +
+                JSON.stringify({
+                  currentQuastionInd: currentQuastionInd.value,
+                  currenAnswer: currenAnswer.value,
+                  score: score.value,
+                  answersCcurrentQuastionInd: answers[currentQuastionInd.value],
+                })
+            );
+
+            currentQuastionInd.value = currentQuastionInd.value + 1;
+            currenAnswer.value = '';
+
+            if (currentQuastionInd.value === questions.length) {
+              isGameOver.value = true;
+              clearInterval(intervalId);
+            }
+          };
+
+          const intervalId = setInterval(onInterval, 5000);
+          return { currentQuation, isGameOver, currenAnswer, score };
+        },
+      };
+
+      createApp(App).mount('#app');
+    </script>
+  </body>
+</html>
