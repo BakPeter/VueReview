@@ -7,11 +7,20 @@ This is a Vue Composition API רeview
 - [Udemy course](#udemy-course)
 - [Extensions](#extensions)
 - [Featues and Code Samples](#featues-and-code-samples)
+
   - [Root Compoment](#root-component)
   - [ref()](#ref)
   - [computed()](#computed)
   - [conditional css class](#conditional-css-class)
   - [input binding](#input-binding)
+  - [event handling](#event-handling)
+    - [v-on](#v-on)
+    - [modifiers](#modifiers)
+  - [conditional rendering v-if](#conditional-rendering)
+  - [list rendering v-for](#list-rendering)
+
+  - [attribute binding](#attribute-binding)
+
 - [Comments](#comments)
 
 ## Udemy course
@@ -118,6 +127,77 @@ let canDrive = computed(() => {
 setup() {
   let age = ref(null);
 }
+```
+
+### Event Handling
+
+**[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
+
+```
+setup() {
+  const addPhoto = () => {
+    console.log('addPhoto');
+  };
+  return { addPhoto };
+}
+```
+
+#### v-on
+
+```
+<button type="submit" v-on:click="addPhoto">Add Photo</button>
+
+<button type="submit" @click="addPhoto">Add Photo</button>
+```
+
+#### modifiers
+
+```
+<form @submit.prevent="addPhoto">
+</form>
+```
+
+## Conditional Rendering
+
+**[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
+
+```
+<div class="no-photos" v-if="photos.length === 0"><\div>
+<div class="gallery" v-else><\div>
+
+setup() {
+  const photos = ref([]);
+  return { photos,};
+}
+```
+
+## List Rendering
+
+**[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
+
+```
+<div class="photo" v-for="photo in photos">
+  {{ photo.id }}
+</div>
+
+<li v-for="({ message }, index) in items">
+  {{ message }} {{ index }}
+</li>
+
+<li v-for="item in items">
+  <span v-for="childItem in item.children">
+    {{ item.message }} {{ childItem }}
+  </span>
+</li>
+```
+
+### Attribute Binding
+
+**[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
+
+```
+<div v-bind:id="dynamicId"></div>
+<div :id="dynamicId"></div>
 ```
 
 ## Comments
