@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="https://unpkg.com/normalize.css/normalize.css" />
+    <style type="text/css">
+      body {
+        font-family: 'Arial', sans-serif;
+        padding: 20px;
+        font-size: 16px;
+        background-color: #f4f4f9;
+      }
+
+      .task {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: white;
+        padding: 10px 20px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border-left: 5px solid;
+      }
+
+      .high {
+        border-color: red;
+      }
+
+      .medium {
+        border-color: orange;
+      }
+
+      .low {
+        border-color: green;
+      }
+
+      .completed {
+        text-decoration: line-through;
+        color: #bbb;
+      }
+
+      .remove-button {
+        color: red;
+        cursor: pointer;
+        border: none;
+        background: none;
+        font-size: 16px;
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <form @submit.prevent="addTask">
+        <input ref="newTaskInput" placeholder="Add new task" v-model="newTask" />
+        <select v-model="newPriority" @submit.prevet="addTask">
+          <option disabled value="">Select priority</option>
+          <option>High</option>
+          <option>Medium</option>
+          <option>Low</option>
+        </select>
+        <button type="submit">Add Task</button>
+      </form>
+
+      <input placeholder="Filter tasks..." v-model="taskFilterValue" />
+
+      <div v-if="tasks.length == 0">
+        <p>No tasks found. Try changing the filter or add some tasks!</p>
+      </div>
+
+      <div v-else>
+        <h3>Your Tasks</h3>
+        <!-- This is a list of tasks -->
+        <div>
+          <div
+            v-for="task in tasks"
+            :key="task.id"
+            :class="{'task':true, completed: task.done, [task.priority.toLowerCase()]: true}"
+          >
+            <!-- Is task done? -->
+            <input type="checkbox" v-model="task.done" />
+            <!-- Task description -->
+            <span>{{ task.description}}</span>
+
+            <!-- Removing a task -->
+            <button class="remove-button" @click="onRemoveTask(task)">✖</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const { createApp, onMounted, onBeforeMount, ref, watch, watchEffect, computed } = Vue;
+
+      const App = {
+        setup() {
+          const cachedTasks = ref(JSON.parse(localStorage.getItem('tasks') ?? '[]'));
+          let taskIdCounter = ref(JSON.parse(localStorage.getItem('taskIdCounter') ?? 0));
+          const tasks = computed(() => {
+            const search = taskFilterValue.value.trim().toLowerCase();
+            if (!search) {
+              return cachedTasks.value;
+            }
+
+            const filtered = cachedTasks.value.filter((task) =>
+              task.description.toLowerCase().includes(search)
+            );
+            return filtered;
+          });
+
+          const newTaskInput = ref(null);
+          const newTask = ref('');
+          const newPriority = ref('');
+          const taskFilterValue = ref('');
+
+          // onMounted(() => {
+          //   console.log('onMounted');
+          //   newTaskInput.value.focus();
+          // });
+
+          // onBeforeMount(() => {
+          //   console.log('onBeforeMount');
+          // });
+
+          const addTask = (event) => {
+            if (newTask.value !== '' && newPriority.value !== '') {
+              cachedTasks.value.unshift({
+                id: taskIdCounter.value,
+                description: newTask.value,
+                priority: newPriority.value,
+                done: false,
+              });
+
+              taskIdCounter.value = taskIdCounter.value + 1;
+              newTask.value = '';
+              newPriority.value = '';
+            }
+          };
+
+          const onRemoveTask = (task) => {
+            console.log(task);
+            const index = tasks.value.findIndex((item) => item.id === task.id);
+            if (index === -1) {
+              console.log(`Item with ind ${task.id} not in the db`);
+            }
+            tasks.value.splice(index, 1);
+          };
+
+          watch(
+            tasks,
+            () => {
+              localStorage.setItem('tasks', JSON.stringify(cachedTasks.value));
+            },
+            { deep: true }
+          );
+
+          watch(
+            taskIdCounter,
+            () => {
+              localStorage.setItem('taskIdCounter', JSON.stringify(taskIdCounter.value));
+            },
+            { deep: true }
+          );
+
+          // watchEffect(() => {
+          //   console.log('task filter value: ' + taskFilterValue.value);
+          //   if (filterTasks.value == null) filterTasks.value = tasks.value;
+          // if (taskFilterValue.value === null)
+          //   tasks.value = ref(JSON.parse(localStorage.getItem('tasks') ?? '[]'));
+          // });
+
+          return {
+            newTaskInput,
+            tasks,
+            newTask,
+            newPriority,
+            taskFilterValue,
+            addTask,
+            onRemoveTask,
+          };
+        },
+      };
+
+      createApp(App).mount('#app');
+    </script>
+  </body>
+</html>

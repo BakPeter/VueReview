@@ -6,6 +6,7 @@ This is a Vue Composition API רeview
 
 - [Udemy course](#udemy-course)
 - [Extensions](#extensions)
+- [CSS](#css)
 - [Featues and Code Samples](#featues-and-code-samples)
 
   - [Root Compoment](#root-component)
@@ -18,8 +19,9 @@ This is a Vue Composition API רeview
     - [modifiers](#modifiers)
   - [conditional rendering v-if](#conditional-rendering)
   - [list rendering v-for](#list-rendering)
-
   - [attribute binding](#attribute-binding)
+  - [template refs, accesing DOM element ](#template-refs)
+  - [watcher](#watcher)
 
 - [Comments](#comments)
 
@@ -33,6 +35,14 @@ This is a Vue Composition API רeview
 
 - [https://marketplace.visualstudio.com/items?itemName=Vue.volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 - [https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+
+## CSS
+
+- Snadcn
+- tailwind
+- React/Next
+
+**[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
 
 ## Featues and Code Samples
 
@@ -117,6 +127,13 @@ let canDrive = computed(() => {
 });
 ```
 
+```
+<div v-for="task in tasks" :key="task.id"
+            :class="{'task':true, completed: task.done, [task.priority.toLowerCase()]: true}"
+>
+</div>
+```
+
 ### Input Binding
 
 **[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
@@ -199,6 +216,54 @@ setup() {
 <div v-bind:id="dynamicId"></div>
 <div :id="dynamicId"></div>
 ```
+
+### Template Refs
+
+```
+<div id="app">
+  <form>
+    <input ref="newTaskInput" placeholder="Add new task" />
+  </form>
+</div>
+
+setup() {
+  const newTaskInput = ref(null);
+
+  onMounted(() => {
+    console.log('onMounted');
+    newTaskInput.value.focus();
+    }
+  );
+}
+```
+
+### watcher
+
+Perform action in reaction to reactive property state change
+
+```
+watch(newTask, (newValue, oldValue) => {
+  console.log({ newValue, oldValue });
+});
+
+watch(tasks,() => {
+  console.log('tasks are changed');
+  },
+  { deep: true, immediate: true }
+);
+```
+
+- deep - watch for deep changes
+- immideate - invoke watch handler immidiatle and in change
+- watchEffect
+
+  ```
+  watchEffect(() => {
+    console.log('New task value is: ' + newTask.value);
+  });
+  ```
+
+**[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
 
 ## Comments
 
