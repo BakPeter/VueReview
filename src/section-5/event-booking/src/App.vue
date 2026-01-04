@@ -17,7 +17,7 @@ import BookingItem from './components/BookingItem.vue'
         @register="console.log('Registered!')"
       />
     </section>
-    <h2 class="text-2xl font-medium pt-6">Your Booking</h2>
+    <h2 class="text-2xl font-medium pt-6 pb-4">Your Booking</h2>
     <section class="grid grid-cols-1 gap-4">
       <BookingItem
         v-for="i in 3"
@@ -25,7 +25,7 @@ import BookingItem from './components/BookingItem.vue'
         description="Booking item"
         statusValue="false"
         @cancel-booking="console.log('Event Cancel: ' + i)"
-      ></BookingItem>
+      />
     </section>
   </main>
 </template>
