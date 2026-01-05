@@ -6,6 +6,7 @@ This is a Vue Composition API רeview
 
 - [Udemy course](#udemy-course)
 - [Extensions](#extensions)
+- [Npm packages](#npm-packages)
 - [CSS](#css)
 - [Featues and Code Samples](#featues-and-code-samples)
 
@@ -37,6 +38,12 @@ This is a Vue Composition API רeview
 - [LiveServer](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 - [Tailwindcss IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 - [Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+
+## Npm packages
+
+- [json-server](https://github.com/typicode/json-server)
+
+**[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
 
 ## CSS
 

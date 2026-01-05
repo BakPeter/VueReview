@@ -10,20 +10,13 @@ defineEmits(['cancelBooking'])
 </script>
 <template>
   <SectionCard>
-    <!-- <div class="grid grid-cols-2 items-center">
-      <p>{{ description }} - Status: {{ statusValue === 'true' ? 'OK' : 'CANCELED' }}</p>
-      <section class="flex justify-end">
-        <CancelButton @click="console.log('Cancel')" />
-      </section>
-    </div> -->
-
     <div class="flex justify-between">
       <div>
-        <p>{{ description }} - Status: {{ statusValue === 'true' ? 'OK' : 'CANCELED' }}</p>
+        <p>{{ description }} - {{ statusValue }}</p>
       </div>
       <section class="flex justify-end">
-        <RoundButton variant="danger">Cancel</RoundButton>
+        <RoundButton variant="danger" @click="$emit('cancelBooking')">Cancel</RoundButton>
       </section>
-    </div></SectionCard
-  >
+    </div>
+  </SectionCard>
 </template>

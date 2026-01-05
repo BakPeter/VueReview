@@ -8,10 +8,7 @@ import RoundedCard from '@/components/RoundedCard.vue'
       <slot name="header"></slot>
     </h3>
 
-    <div
-      v-if="$slots.default"
-      :class="{ 'p-4 ': true, 'border-b-8 border-gray-200': $slots.footer }"
-    >
+    <div v-if="$slots.default" :class="{ 'p-4 ': true, 'border-b border-gray-200': $slots.footer }">
       <slot></slot>
     </div>
 
