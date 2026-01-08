@@ -8,6 +8,7 @@ This is a Vue Composition API רeview
 - [Extensions](#extensions)
 - [Npm packages](#npm-packages)
 - [CSS](#css)
+- [Links](#links)
 - [Featues and Code Samples](#featues-and-code-samples)
 
   - [Root Compoment](#root-component)
@@ -52,6 +53,12 @@ This is a Vue Composition API רeview
 - React/Next
 
 **[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
+
+## Links
+
+**[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
+
+- [lucide icons](https://lucide.dev/)
 
 ## Featues and Code Samples
 

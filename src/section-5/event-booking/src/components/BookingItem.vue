@@ -1,22 +1,27 @@
 <script setup lang="ts">
 import SectionCard from '@/components/SectionCard.vue'
-import RoundButton from './RoundButton.vue'
+import RoundButton from '@/components/RoundButton.vue'
+import { LoaderCircle, Check } from 'lucide-vue-next'
+import { computed } from 'vue'
 
-defineProps<{
-  description: string
-  statusValue: string
+const props = defineProps<{
+  title: string
+  status: string
 }>()
+
+const pending = computed(() => props.status === 'pending')
+const icon = computed(() => (pending.value ? LoaderCircle : Check))
+
 defineEmits(['cancelBooking'])
 </script>
 <template>
   <SectionCard>
     <div class="flex justify-between">
-      <div>
-        <p>{{ description }} - {{ statusValue }}</p>
+      <div class="flex space-x-2">
+        <div>{{ title }}</div>
+        <div><component :is="icon" :class="{ 'animate-spin': pending }" /></div>
       </div>
-      <section class="flex justify-end">
-        <RoundButton variant="danger" @click="$emit('cancelBooking')">Cancel</RoundButton>
-      </section>
+      <RoundButton variant="danger" @click="$emit('cancelBooking')">Cancel</RoundButton>
     </div>
   </SectionCard>
 </template>
