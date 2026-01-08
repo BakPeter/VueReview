@@ -7,7 +7,10 @@ This is a Vue Composition API רeview
 - [Udemy course](#udemy-course)
 - [Extensions](#extensions)
 - [Npm packages](#npm-packages)
+  - json-server
 - [CSS](#css)
+- [Links](#links)
+  - lucide icons
 - [Featues and Code Samples](#featues-and-code-samples)
 
   - [Root Compoment](#root-component)
@@ -52,6 +55,12 @@ This is a Vue Composition API רeview
 - React/Next
 
 **[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
+
+## Links
+
+**[`^ top ^`](#vue-review)** | **[`^ Table of content ^`](#table-of-content)**
+
+- [lucide icons](https://lucide.dev/)
 
 ## Featues and Code Samples
 
